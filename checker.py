@@ -1,4 +1,5 @@
 import os
+from shutil import ExecError
 import time
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
@@ -21,20 +22,26 @@ def saveWallet(wallet, rarity):
         print("Saved "+str(wallet)+" to file.")
 
 def sendHook(wallet, rarity):
-    webhook = DiscordWebhook(url=str(discordWebhook), rate_limit_retry=True)
-    embed = DiscordEmbed(title=str(rarity)+" Winner Found!", color=122717, url="https://polygonscan.com/address/"+str(wallet))
-    embed.add_embed_field(name="Wallet", value="||"+str(wallet)+"||", inline=False)
-    embed.add_embed_field(name="Rarity", value=str(rarity), inline=False)
-    if str(rarity) == "Classic":
-        embed.set_thumbnail(url="https://lh3.googleusercontent.com/QZW32sOaf249olwK2UOzIeoKA9lQ6gqdEH3BTSzX3K42aJ97yngJGhax7465fP2HUe-flo82heZJRuDa7yvu5QULCiKlue0OUDF6")
-    elif str(rarity) == "Rare":
-        embed.set_thumbnail(url="https://lh3.googleusercontent.com/2CT2-voZb8OQNDcSgAisJKnF_VvClneAxSdAeEuKSkBCbvD8o_09HqkOZy00ghxBIc_mH9mhdoh3XpRP6O0FZL8AYOT4FetT9Aj07Q")
-    elif str(rarity) == "Ultra Rare":
-        embed.set_thumbnail(url="https://lh3.googleusercontent.com/mEBM-le8ppE-vkFKH5B7uXfTQBY3Qh5_Yf0mql3XSJ2JmCNtVp7q41O95X_jgFFeTay_fAo8GXcXlm3uOXlCwTIzbZB1e94hlQGE")
-    embed.set_footer(icon_url="https://cdn.discordapp.com/attachments/819279757422100491/838377712330211328/giphy.gif",text='Macys Win Checker By Cvnnor#0001')
-    embed.set_timestamp()
-    webhook.add_embed(embed)
-    webhook.execute()
+    try:
+        if str(discordWebhook).lower() == "n":
+            pass
+        else:
+            webhook = DiscordWebhook(url=str(discordWebhook), rate_limit_retry=True)
+            embed = DiscordEmbed(title=str(rarity)+" Winner Found!", color=122717, url="https://polygonscan.com/address/"+str(wallet))
+            embed.add_embed_field(name="Wallet", value="||"+str(wallet)+"||", inline=False)
+            embed.add_embed_field(name="Rarity", value=str(rarity), inline=False)
+            if str(rarity) == "Classic":
+                embed.set_thumbnail(url="https://lh3.googleusercontent.com/QZW32sOaf249olwK2UOzIeoKA9lQ6gqdEH3BTSzX3K42aJ97yngJGhax7465fP2HUe-flo82heZJRuDa7yvu5QULCiKlue0OUDF6")
+            elif str(rarity) == "Rare":
+                embed.set_thumbnail(url="https://lh3.googleusercontent.com/2CT2-voZb8OQNDcSgAisJKnF_VvClneAxSdAeEuKSkBCbvD8o_09HqkOZy00ghxBIc_mH9mhdoh3XpRP6O0FZL8AYOT4FetT9Aj07Q")
+            elif str(rarity) == "Ultra Rare":
+                embed.set_thumbnail(url="https://lh3.googleusercontent.com/mEBM-le8ppE-vkFKH5B7uXfTQBY3Qh5_Yf0mql3XSJ2JmCNtVp7q41O95X_jgFFeTay_fAo8GXcXlm3uOXlCwTIzbZB1e94hlQGE")
+            embed.set_footer(icon_url="https://cdn.discordapp.com/attachments/819279757422100491/838377712330211328/giphy.gif",text='Macys Win Checker By Cvnnor#0001')
+            embed.set_timestamp()
+            webhook.add_embed(embed)
+            webhook.execute()
+    except Exception as e:
+        print("Error sending hook: "+str(e))
 
 with open(__location__+"\classic.txt", "r") as classicList:
     classicList = classicList.readlines()
@@ -82,8 +89,8 @@ with open(__location__+"\myWallets.txt", "r") as userWallets:
             ultraRareCount += 1
         else:
             pass
-        time.sleep(1)
 
 
 
 print("\nSuccessfully checked: "+str(walletCount)+" wallets.\n- Classics: "+str(classicCount)+"\n- Rares: "+str(rareCount)+"\n- Ultra Rares: "+str(ultraRareCount))
+input("\nPress enter to exit.")
