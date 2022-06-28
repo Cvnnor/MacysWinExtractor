@@ -5,7 +5,8 @@
 - Install python 3.9.10 with PIP
 - Once installed run the command ```pip install discord_webhook```
 - Once installed, add all of the winning wallets to the ```myWallets.txt``` directly from the csv on new lines.
-- Now run the script, put your discord webhook as prompted. (this may get rate limited depending on how many you have but it saves to a file anyway)
+- Now run the script
+- If you wish to run without a discord webhook (makes the script infinitely quicker) type ```n``` as your webhook otherwise, put your discord webhook as prompted. (this may get rate limited depending on how many you have but it saves to a file anyway)
 
 # Potential Errors:
 - PIP not recognised, it probably was not ticked when installing python, run the installer again and make sure to tick INSTALL PIP in the optional settings.
