@@ -4,7 +4,7 @@
 # How to use:
 - Install python 3.9.10 with PIP
 - Once installed run the command ```pip install discord_webhook```
-- Once installed, add all of the winning wallets to the ```myWallets.txt```
+- Once installed, add all of the winning wallets to the ```myWallets.txt``` directly from the csv on new lines.
 - Now run the script, put your discord webhook as prompted. (this may get rate limited depending on how many you have but it saves to a file anyway)
 
 # Potential Errors:
