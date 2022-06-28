@@ -16,8 +16,8 @@ ultraRareCount = 0
 discordWebhook = input("Please enter your discord webhook: ")
 
 def saveWallet(wallet, rarity):
-    with open(__location__+'/winners.txt', 'w') as f:
-        f.write(str(wallet)+" - "+str(rarity))
+    with open(__location__+'/winners.txt', 'a') as f:
+        f.write(str(wallet)+" - "+str(rarity)+"\n")
         print("Saved "+str(wallet)+" to file.")
 
 def sendHook(wallet, rarity):
